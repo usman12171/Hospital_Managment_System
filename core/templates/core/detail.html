@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}User register {% endblock title %}
+{% block main-content %} 
+
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="mb-5">
+                    <img class="img-fluid w-100 rounded mb-5" src="{{blo_detail.blog_image.url}}" alt="">
+                    <h1 class="mb-4">{{blo_detail.doc_advcie|truncatewords:7}}</h1>
+                    <p>{{blo_detail.blog_description|truncatewords:200}}</p>
+                    <div class="d-flex justify-content-between bg-light rounded p-4 mt-4 mb-4">
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle me-2" src="{{blo_detail.doctor.profile_pic.url}}" width="40" height="40" alt="">
+                            <span>{{blo_detail.doctor.first_name}}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</span>
+                            <span class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog Detail End -->
+
+                <!-- Comment List Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">3 Comments</h4>
+                    <div class="d-flex mb-4">
+                        <img src="img/user.jpg" class="img-fluid rounded-circle" style="width: 45px; height: 45px;">
+                        <div class="ps-3">
+                            <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+                            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+                                accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
+                            <button class="btn btn-sm btn-light">Reply</button>
+                        </div>
+                    </div>  
+                </div>
+                <!-- Comment List End -->
+
+                <!-- Comment Form Start -->
+                <div class="bg-light rounded p-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-white mb-4">Leave a comment</h4>
+                    <div class="row my-3">
+                        <div class="col-sm-6 offset-sm-3">
+                        
+                         <form action="" method="post" novalidate class="shadow p-5">
+                            {% csrf_token %}
+                            {% for fom in form %}
+                          <div class=" form-group mb-3">
+                           {{fom.label_tag}} {{fom}}<small class="text-danger" >{{fom.errors|striptags}}</small>
+                          </div>
+                            {% endfor %}
+                           <input type="submit"  value="Submit" class="btn btn-primary">
+                          <br>
+                            {% if form.non_field_errors %}
+                              {% for error in form.non_field_errors %}
+                              <p class="alert alert-danger my-3">{{error}}</p>
+                              {% endfor %}
+                            {% endif %}
+                         </form>
+                        </div>
+                       </div>
+                </div>
+                <!-- Comment Form End -->
+            </div>
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4">
+                <!-- Search Form Start -->
+                <div class="mb-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-3" placeholder="Keyword">
+                        <button class="btn btn-primary px-3"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <!-- Search Form End -->
+
+                <!-- Category End -->
+
+                <!-- Recent Post Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Recent Post</h4>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-2.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-3.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                        </a>
+                    </div>
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/blog-2.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
+                        </a>
+                    </div>
+                </div>
+                <!-- Recent Post End -->
+
+                <!-- Image Start -->
+                <div class="mb-5">
+                    <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
+                </div>
+                <!-- Image End -->
+
+                <!-- Tags Start -->
+ 
+
+           
+                <!-- Plain Text End -->
+            </div>
+            <!-- Sidebar End -->
+        </div>
+    </div>
+    <!-- Blog End -->
+
+{% endblock main-content %}

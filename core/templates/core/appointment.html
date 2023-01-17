@@ -1,0 +1,166 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}User register {% endblock title %}
+{% block main-content %} 
+       {%if uer %}
+       <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Widget Item -->
+                <div class="col-md-12">
+                    <div class="widget-area-2 proclinic-box-shadow">
+                        <h3 class="widget-title">Appointment List</h3>
+                        <div class="table-responsive mb-3">
+                            <table id="tableId" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="no-sort">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="select-all">
+                                                <label class="custom-control-label" for="select-all"></label>
+                                            </div>
+                                        </th>
+                                        <th>Patient Name</th>
+                                        <th>Patient disess</th>
+                                        <th>Patient Type</th>
+                                        <th>Patient File</th>
+                                        <th>appointment date</th>
+                                        <th>Phone</th>
+                                        <th>appointment description</th>
+                                        <th>appointment status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ue in uer %}
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="1">
+                                                <label class="custom-control-label" for="1"></label>
+                                            </div>
+                                        </td>
+                                        <td>{{ue.patientId.user.username}}</td>
+                                        <td>{{ue.patientId.symptoms}}</td>
+                                        <td>{{ue.patientId.patient_type}}</td>
+                                        <td>{{ue.patientId.patient_file.url}}</td>
+                                        <td>{{ue.appointmentDate}}</td>
+                                        <td>{{ue.patientId.mobile}}</td>
+                                        <td>{{ue.description}}</td>
+                                        <td><button class="btn btn-sm btn-primary btn-minus done"  class="product-id" pid="{{ue.patientId.id}}">
+                                            <i class="fa fa-check"></i>
+                                            </button>         
+                                            <button class="btn btn-sm btn-primary btn-plus reject"  class="product-id" pid="{{ue.patientId.id}}">
+                                                <i class="fa fa-ban"></i>
+                                            </button></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                            <!--Export links-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center export-pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-download"></span> csv</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-printer"></span>  print</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- /Export links-->
+                            <button type="button" class="btn btn-danger mt-3 mb-0"><span class="ti-trash"></span> DELETE</button>
+                            <button type="button" class="btn btn-primary mt-3 mb-0"><span class="ti-pencil-alt"></span> EDIT</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Widget Item -->
+            </div>
+        </div></div>
+       {%else%}
+      
+    
+    <!-- Appointment Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
+                <h1 class="display-4">Chosee Doctor For Appiontment </h1>
+            </div>
+            <div class="owl-carousel team-carousel position-relative">
+                {% for do in doc %}
+                <div class="team-item">
+                    <div class="row g-0 bg-light rounded overflow-hidden">
+                        <div class="col-12 col-sm-5 h-100">
+                            <img class="img-fluid h-100" src="{{do.profile_pic.url}}" style="object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                            <div class="mt-auto p-4">
+                                <h3>{{do.user.username}}</h3>
+                                <h6 class="fw-normal fst-italic text-primary ">{{do.department}}</h6>
+                                <h6 class="fw-normal fst-italic text-primary  ">{{do.education}}</h6>
+                                <p class="m-0 mb-4">Our Profession doctor.</p>
+                                <a href="{% url 'appointment' do.user.id %}" class="btn btn-outline-dark rounded-pill py-md-3 px-md-3 mx-2">Appointment</a>
+                            </div>
+                            <div class="d-flex mt-auto border-top p-4">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row gx-5">                   
+                <div class="col-lg-12">
+                    <div class="bg-light text-center rounded p-5">
+                        <h1 class="mb-4">Book An Appointment{{objs.education}}</h1>
+                       
+                        <form action="" method="post" novalidate class="shadow p-5" enctype="multipart/form-data" >
+                            {% csrf_token %}
+                            {% if messages %}
+                            {% for message in messages %}
+                            {{message}}
+                            {% endfor %}
+                            {% endif %}
+                            <div class="row g-3">
+                                {% if request.user.is_authenticated  %}
+                                {% for fom in form %}
+                                <div class="col-12 col-sm-6">
+                                <div class=" form-group mb-3">
+                                {{fom.label_tag}} {{fom}}<small class="text-danger" >{{fom.errors|striptags}}</small>
+                                </div>
+                                </div>
+                                {% endfor %}
+                                {% for fom in form2 %}
+                                <div class="col-12 col-sm-6">
+                                <div class=" form-group mb-3">
+                                {{fom.label_tag}} {{fom}}<small class="text-danger" >{{fom.errors|striptags}}</small>
+                                </div>
+                                </div>
+                                {% endfor %}
+                                <input type="submit"  value="Submit" class="btn btn-primary w-100 py-3">
+                                {% else %}
+                                <a href="{% url 'signuppatient'%}" class="btn btn-primary w-100 py-3">Register Patient</a>
+                                {% endif %}
+                                <br>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Appointment End -->
+
+{% endblock main-content %}
